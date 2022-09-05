@@ -1,13 +1,9 @@
 class Solution {
 public:
-    unordered_map<string ,int>map;
-    vector<string> ans;
-    void solve(string s,int n){
-        if(map[s]!=0){
-            return;
-        }
+    unordered_map<string, int> map;
+    void solve(string s, vector<string> &ans,int n){
+        if(map[s]!=0) return;
         map[s]++;
-        if(n < 0)return;
         if(n == 0){
             if(findMinRem(s) == 0){
                 ans.push_back(s);
@@ -18,10 +14,9 @@ public:
             
             string left = s.substr(0,i);
             string right = s.substr(i+1);
-            solve(left+right, n-1);         
+            solve(left+right, ans, n-1);         
             
         }
-        return;
     }
     
     int findMinRem(string s){
@@ -43,7 +38,8 @@ public:
     vector<string> removeInvalidParentheses(string s) {
         
         int n = findMinRem(s);
-        solve(s,n);
+        vector<string> ans;
+        solve(s,ans,n);
         return ans;
     }
 };
