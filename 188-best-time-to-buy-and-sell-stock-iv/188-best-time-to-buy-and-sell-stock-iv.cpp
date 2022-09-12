@@ -1,20 +1,30 @@
 class Solution {
 public:
-    int getAns(vector<int>& prices, int n, int ind, int buy, int cap,vector<vector<vector<int>>>& dp ){
-        if(ind==n || cap==0) return 0; //base case
-        if(dp[ind][buy][cap]!=-1) return dp[ind][buy][cap];
-        int profit;
-        if(buy==0){// We can buy the stock
-            profit = max(0+getAns(prices,n,ind+1,0,cap,dp), -prices[ind] + getAns(prices,n,ind+1,1,cap,dp));
+    
+    int solve(int k, vector<int>&prices, int idx, bool buy, vector<vector<vector<int>>> &dp){
+        if(idx >= prices.size() || k == 0)return 0;
+        
+        if(dp[idx][buy][k] != -1)return dp[idx][buy][k];
+        
+        int profit =0;
+        if(buy){
+            int buyit = -prices[idx] + solve(k, prices, idx+1, false,dp);
+            int dontbuy = solve(k, prices, idx+1, true, dp);
+            
+            profit = max(buyit, dontbuy);
         }
-        if(buy==1){// We can sell the stock
-            profit = max(0+getAns(prices,n,ind+1,1,cap,dp),prices[ind] + getAns(prices,n,ind+1,0,cap-1,dp));
+        else{
+            int sellit = prices[idx] + solve(k-1, prices, idx+1, true, dp);
+            int dontsell = solve(k, prices, idx+1, false, dp);
+            profit = max(sellit, dontsell);
         }
-        return dp[ind][buy][cap] = profit;
+        return dp[idx][buy][k] = profit;
+        
     }
+    
     int maxProfit(int k, vector<int>& prices) {
         int n = prices.size();
-        vector<vector<vector<int>>> dp(n,vector<vector<int>>(2,vector<int>(k+1,-1)));
-        return getAns(prices,n,0,0,k,dp);
+        vector<vector<vector<int>>> dp(n+1, vector<vector<int>> (2, vector<int> (k+1, -1)));
+        return solve(k, prices, 0, true, dp);
     }
 };
