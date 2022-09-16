@@ -2,6 +2,7 @@ class Solution {
 public:
     
     int solve(vector<int> &nums, vector<int>& mul, int i, int j, int k, vector<vector<int>>&dp){
+        // i = starting index , j = mul index , k = ending index
         if(j == mul.size())return 0;
         if(dp[i][j] != INT_MIN)return dp[i][j];
         
