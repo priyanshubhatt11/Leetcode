@@ -1,7 +1,8 @@
 class Solution {
 public:
     
-  int solve(string s, char ch, int k){
+    string s ;
+  int solve( char ch, int k){
       int j=0,ans=0,c=0;
       for(int i=0;i<s.size();i++){
           if(s[i] != ch)c++;
@@ -15,10 +16,11 @@ public:
       
   }
     
-    int characterReplacement(string s, int k) {
+    int characterReplacement(string t, int k) {
+        s = t;
         int ans=0;
         for(char i='A'; i<='Z';i++){
-            ans = max(ans, solve(s,i, k));
+            ans = max(ans, solve(i, k));
         }
         return ans;
     }
