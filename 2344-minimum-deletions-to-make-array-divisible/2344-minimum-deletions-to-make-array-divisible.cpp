@@ -5,11 +5,12 @@ public:
         int n = numsDiv[0];
         for(int i=1;i<numsDiv.size();i++){
             int m = numsDiv[i];
-            while(m > 0){
-                int rem = n%m;
-                n = m;
-                m = rem;
-            }
+            // while(m > 0){
+            //     int rem = n%m;
+            //     n = m;
+            //     m = rem;
+            // }
+            n = gcd(n,m);
         }
         return n;
     }
