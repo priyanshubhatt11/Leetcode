@@ -1,13 +1,15 @@
 class Solution {
 public:
     int hammingDistance(int x, int y) {
-        int p = x^y;
-        int ct=0;
-        while(p != 0)
-        {
-            ct += p&1;
-            p= p>>1;
+        
+        int c=0;
+        for(int i=0;i<32;i++){
+            if((x&1) ^ (y&1) == 1){
+                c++;
+            }
+            x >>=1;
+            y >>= 1;
         }
-        return ct;
+        return c;
     }
 };
