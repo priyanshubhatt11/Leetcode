@@ -1,6 +1,12 @@
 class Solution {
 public:
     int getSum(int a, int b) {
-        return a+b;
+        
+        if(b == 0)return a;
+        
+        int sum = a ^ b;
+        int c = (unsigned int) (a&b) << 1;
+        return getSum(sum, c);
+        
     }
 };
