@@ -4,7 +4,7 @@ public:
     
     int find(int x){
         if(par[x] == x)return x;
-        return par[x] = find(par[x]);
+        return find(par[x]);
     }
     bool equationsPossible(vector<string>& eq) {
         for(int i=0;i<26;i++){
