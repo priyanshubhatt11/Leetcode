@@ -11,11 +11,13 @@ public:
             int buyit = -prices[idx] + solve(prices, idx+1, m, false, dp);
             int dontbuy = solve(prices, idx+1, m, true, dp);
             profit = max(buyit, dontbuy);
+            dp[idx][m][buy] = profit;
         }
         else{
             int sellit = prices[idx] + solve(prices, idx+1, m-1, true, dp);
             int dontsell = solve(prices, idx+1, m, false, dp);
             profit = max(sellit, dontsell);
+            dp[idx][m][buy] = profit;
         }
         return dp[idx][m][buy] = profit;
         
