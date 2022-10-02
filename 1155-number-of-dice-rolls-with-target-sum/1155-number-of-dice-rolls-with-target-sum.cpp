@@ -4,10 +4,8 @@ public:
     #define MOD 1000000007;
     
     int solve(int n, int k, int target, vector<vector<int>> &dp){
-        if(target < 0)return 0;
-        if(n == 0 && target == 0)return 1;
-        if(n<=0 && target!=0)return 0;
-        if(n!=0 && target == 0)return 0;
+        if(target < 0 || n<0)return 0;
+        if(target == 0 && n == 0)return 1;
         if(dp[n][target] != INT_MIN){
             return dp[n][target];
         }
