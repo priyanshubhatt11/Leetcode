@@ -14,7 +14,7 @@
                 //cout<<i<<" "<<start<<" "<<end<<endl;
        
                 int sum = nums[i] + nums[start] + nums[end];
-                //if(sum == target)return sum;
+                if(sum == target)return sum;
                 if(abs(sum - target) < dif){
                     dif = abs(sum - target);
                     ans = sum;
