@@ -15,7 +15,7 @@ public:
         if(abs(left- right) > 1)
             return false;
         
-        return isBalanced(root->left) & isBalanced(root->right);
+        return isBalanced(root->left) && isBalanced(root->right);
         
         
     }
