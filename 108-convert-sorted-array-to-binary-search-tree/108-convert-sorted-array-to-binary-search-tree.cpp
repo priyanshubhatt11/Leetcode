@@ -10,8 +10,7 @@ public:
             node->right = solve(nums, mid+1, j);
             return node;
         }
-        return NULL;
-        
+        return NULL;    
     }
     
     TreeNode* sortedArrayToBST(vector<int>& nums) {
