@@ -10,7 +10,6 @@ public:
         q.push(NULL);
         
         while(!q.empty()){
-            cout<<"f";
             TreeNode *temp = q.front();
             q.pop();
             if(temp == NULL){
