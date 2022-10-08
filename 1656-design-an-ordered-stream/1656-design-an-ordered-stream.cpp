@@ -1,22 +1,21 @@
 class OrderedStream {
 public:
-    map<int, string> mp;
-    int m , n=1;
-    OrderedStream(int x) {
-        m=x;
+    
+    vector<string> vec;
+    int i=0;
+    int nn ;
+    
+    OrderedStream(int n) {
+        vec = vector<string>(n, "");
+        nn = n;
     }
     
-    vector<string> insert(int key, string value) {
-        mp[key] = value;
+    vector<string> insert(int idKey, string value) {
         vector<string> ans;
-        for(int i=key;i<=m;i++){
-            if(i == n && mp[i] != ""){
-                ans.push_back(mp[i]);
-                n++;
-            }
-            else{
-                break;
-            }
+        vec[idKey-1] = value;
+        while(i<nn && vec[i] != ""){
+            ans.push_back(vec[i]);
+            i++;
         }
         return ans;
     }
