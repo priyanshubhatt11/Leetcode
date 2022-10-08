@@ -5,7 +5,7 @@ public:
         sort(nums.begin(), nums.end());
         int diff = INT_MAX;
         int ans=0;
-        for(int i=0;i<nums.size()-1;i++){
+        for(int i=0;i<nums.size()-2;i++){
             int one = nums[i];
             int j= i+1;
             int k=nums.size()-1;
