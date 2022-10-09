@@ -12,7 +12,9 @@ public:
     }
     
     int longest() {
+        //cout<<"x"<<endl;
         while(set.count(i+1)){
+            //cout<<i<<" ";
             i++;
         }
         return i;
