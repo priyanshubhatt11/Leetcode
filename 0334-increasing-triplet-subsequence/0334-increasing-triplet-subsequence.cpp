@@ -7,10 +7,10 @@ public:
         for(int i=0;i<nums.size();i++){
             
             if(nums[i] > mid)return true;
-            
+            else if(nums[i] < left)left = nums[i];
             else if(nums[i] > left && nums[i] < mid) mid = nums[i];
             
-            else if(nums[i] < left)left = nums[i];
+            
         }
         return false;
     }
