@@ -35,7 +35,7 @@ public:
         bool last = false;  // to check the end
         for(int i=0; i<26;i++){
             if(root->child[i] != NULL){
-                cout<<(char)(i+'a');
+                //cout<<(char)(i+'a');
                 findd(root->child[i] , c+1);
                 last = true;
             }
