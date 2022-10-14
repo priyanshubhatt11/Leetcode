@@ -1,23 +1,34 @@
-
 class Solution {
 public:
     ListNode* deleteMiddle(ListNode* head) {
-        int c=0;
-        ListNode *temp = head;
-        while(temp!=NULL){
-            c++;
-            temp = temp->next;
-        }
         
-        c = c/2;
-        c--;
-        if(c<0)return NULL;
-        temp = head;
-        while(c!=0){
-            temp = temp->next;
-            c--;
+        long long n=0;
+        if(head!=NULL)
+        {
+        struct  ListNode* temp=head;
+        struct ListNode* h=head;
+
+        while(temp!=NULL)
+        {
+            temp=temp->next;
+            n++;
         }
-        temp->next = temp->next->next;
+        n=n/2;
+        n--;    // humne n-- isliye kiya kyuki humko middle se phle rukna hai, fir h->next = h->next->next;
+        
+        if(n <0)return NULL;    // when size of list is 1
+            
+        long long x=0;
+        while(x<n)
+        {
+            h=h->next;
+            x++;
+        }
+        h->next=h->next->next;
+        
+       
+     }
         return head;
+
     }
 };
