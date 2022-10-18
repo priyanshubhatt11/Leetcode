@@ -14,7 +14,7 @@ public:
     int countEven(int num) {
         int ans =0;
         for(int i=1;i<=num;i++){
-            if(summ(i)%2 == 0){
+            if((summ(i)&1) == 0){
                 ans++;
             }
         }
