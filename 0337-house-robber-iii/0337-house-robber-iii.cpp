@@ -4,7 +4,7 @@ public:
     unordered_map<TreeNode*, int> map;
     int solve(TreeNode *root){
         if(root == NULL)return 0;
-        if(map.count(root))return map[root];
+        if(map.find(root)!=map.end())return map[root];
         int sum =0;    
         if(root->left){
             sum += solve(root->left->left) + solve(root->left->right);
