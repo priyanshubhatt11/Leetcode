@@ -18,7 +18,7 @@ public:
             temp[i-'a'] = true;
         }
         if(!flag){  // add sum
-            cout<<arr[idx]<<" ";
+            //cout<<arr[idx]<<" ";
             solve(arr, temp, idx+1, sum + arr[idx].size());
         }
         solve(arr, vis, idx+1, sum);        
