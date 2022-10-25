@@ -9,22 +9,22 @@ public:
         vector<int> odd, even, oddtar, eventar;
         
         for(int i=0;i<nums.size();i++){
-            if(nums[i]%2 == 0)even.push_back(nums[i]);
+            if((nums[i]&1)==0)even.push_back(nums[i]);
             else    odd.push_back(nums[i]);
             
-            if(tar[i]%2 == 0)eventar.push_back(tar[i]);
+            if((tar[i]&1) == 0)eventar.push_back(tar[i]);
             else    oddtar.push_back(tar[i]);
         }
         
-        long long ans1 =0, ans2 =0;
+        long long ans=0;
         
         for(int i=0;i<even.size();i++){
-            ans1 += abs(even[i] - eventar[i])/2;
+            ans += abs(even[i] - eventar[i])/2;
         }
         for(int i=0;i<odd.size();i++){
-            ans2 += abs(odd[i] - oddtar[i])/2;
+            ans += abs(odd[i] - oddtar[i])/2;
         }
         
-        return (ans1+ans2)/2;
+        return ans/2;
     }
 };
