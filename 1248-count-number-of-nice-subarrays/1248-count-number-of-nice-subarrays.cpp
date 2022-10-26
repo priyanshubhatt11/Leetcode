@@ -1,5 +1,21 @@
 class Solution {
 public:
+    
+    int solve(vector<int>&nums, int k){
+        int j=0,ans =0, c =0;
+        
+        for(int i=0;i<nums.size();i++){
+            c += nums[i];
+            
+            while(c > k){
+                c -= nums[j];
+                j++;
+            }
+            ans += i-j+1;
+        }
+        return ans;
+        
+    }
     int numberOfSubarrays(vector<int>& nums, int k) {
         
         // changing all even to 0 and odd to 1
@@ -11,18 +27,6 @@ public:
         }
         // Now we only have to count the subarray with sum = k
         
-        int j=0,sum=0,ans=0;
-        unordered_map<int,int> map;
-        for(int i=0;i<nums.size();i++){
-            sum += nums[i];
-            if(sum == k){
-                ans++;
-            }
-            if(map.find(sum-k) != map.end()){
-                ans += map[sum -k];
-            }
-            map[sum]++;
-        }
-        return ans;
+        return solve(nums, k) - solve(nums, k-1);
     }
 };
