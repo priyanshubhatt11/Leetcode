@@ -1,25 +1,16 @@
-class Solution {
+//  https://www.youtube.com/watch?v=csH0hKEgTSY
 
-#define ll long long
-    
+class Solution {
 public:
-    long long minimumMoney(vector<vector<int>>& transactions) {
+    long long minimumMoney(vector<vector<int>>& t) {
+        long long total =0;
+        int mi =0;
         
-        ll bad = 0;
-        ll dip = 0;
-        ll need = 0;
-        
-        for (auto v : transactions) {
-            if (v[0] <= v[1]) {
-                need = max(need, (ll)v[0]);
-            }
-            else {
-                bad += (v[0] - v[1]);
-                dip = max(dip, (ll)v[1]);
-            }
+        for(auto &i: t){
+            mi = max(mi , min(i[0] , i[1]));
+            total += max(0, i[0] - i[1]);
         }
         
-        return bad + max(dip, need);
-        
+        return total + mi;
     }
 };
