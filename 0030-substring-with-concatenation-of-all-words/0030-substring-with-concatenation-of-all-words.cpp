@@ -24,6 +24,7 @@ public:
             //cout<<s.substr(i,m)<<endl;
             if(isvalid(s.substr(i, m) , map, sz)){
                 ans.push_back(i);
+                
             }
         }
         return ans;
