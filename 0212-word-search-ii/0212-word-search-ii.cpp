@@ -1,21 +1,25 @@
-class Solution {
-public:
-    class Trie{ 
+class Trie{
         public:
         Trie *child[26];
         bool isEnd;
-        // one another solution is make
+        string str;
+        
         Trie(){
             for(int i=0;i<26;i++){
                 child[i] = NULL;
             }
             isEnd = false;
         }
-    };
-    Trie* root;
+        
+};
+class Solution {
+    public:
+    
+    
     Solution(){
         root = new Trie();
     }
+    Trie* root;
     
     void insert(string s){
         Trie *temp = root;
@@ -27,53 +31,69 @@ public:
             temp = temp->child[idx];
         }
         temp->isEnd = true;
-    }    
-    
-    /********************************************************************************************/
-    int n,m;
-    vector<vector<bool>> vis;
-    void solve(vector<vector<char>> &board, int i, int j, string s , Trie *root , vector<string> &ans){
-        if(i < 0 || i >= n || j < 0 || j >= m || vis[i][j] == true || root->child[ board[i][j]- 'a' ] == NULL)  return;
-        //cout<<s<<" ";
-        root = root->child[ board[i][j] - 'a'];
-        if(root->isEnd == true){
-            ans.push_back(s + board[i][j]);
-            root->isEnd = false;
-            //return;
-        }
-        vis[i][j] = true;
-        s.push_back(board[i][j]);
-        solve(board, i+1, j , s  , root,  ans);
-        solve(board, i, j+1 , s , root,  ans);
-        solve(board, i-1, j , s , root, ans);
-        solve(board, i, j-1 , s , root,  ans);
-        
-        vis[i][j] = false;
+        temp->str = s;
     }
     
-    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+    vector<string> ans;
+    vector<vector<bool>> vis;
+    void solve(vector<vector<char>>&board, int i,int j, Trie *root){
         
-        for(auto i: words){
+        if(i<0 || i>=board.size() || j<0 || j>=board[0].size() || vis[i][j] == true || root->child[board[i][j] - 'a'] == NULL)return;
+        root = root->child[board[i][j] - 'a'];
+        if(root->isEnd == true){
+            //cout<<"A";
+            ans.push_back(root->str);
+            root->isEnd = false;
+        }
+        vis[i][j] = true;
+        solve(board, i+1, j, root);
+        solve(board, i, j+1, root);
+        solve(board, i-1, j, root);
+        solve(board, i, j-1, root);
+        vis[i][j] = false;
+    }
+
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        for(auto i:words){
             insert(i);
         }
-        n = board.size(), m = board[0].size();
-        vis.resize(n, vector<bool>(m, false));
         
-        
-        vector<string> ans;
+        int n=board.size(), m = board[0].size();
+        vis.resize(n, vector<bool> (m, false));
+        //vector<string> ans;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
-                char x = board[i][j];
-                if(root->child[x - 'a'] != NULL){ //  check word present or not
-                    //Trie *temp = root;
-                    solve(board, i, j, "", root,  ans);
+                int idx = board[i][j] - 'a';
+                if(root->child[idx] != NULL){
+                    //cout<<i<<" "<<j;
+                    Trie *temp = root;
+                    solve(board, i, j ,temp);
                 }
             }
         }
+        
+        
+        
         return ans;
     }
 };
-/**************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
