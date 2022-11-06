@@ -12,11 +12,11 @@ public:
         int x=0;
         for(auto x:nums)
         {
-            if(mp[x] == 1){
-           if(mp.find(x)!=mp.end() && (mp.find(x-1)==mp.end())&& (mp.find(x+1)==mp.end()))
-           {
-               ans.push_back(x);
-           }
+            if(mp[x] == 1){   // number ek baar hi aana chiye
+               if((mp.find(x-1)==mp.end())&& (mp.find(x+1)==mp.end()))
+               { // number 
+                   ans.push_back(x);
+               }
             }
         
         }
