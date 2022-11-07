@@ -1,9 +1,14 @@
 class Solution {
 public:
     
+    long long gcd(int a, int b){
+        if(b == 0)return a;
+        return gcd(b, a%b);
+    }
+    
     long long findlcm(int a, int b){
         
-        return (a*b)/__gcd(a,b);
+        return (a*b)/gcd(a,b);
     }
     
     int nthMagicalNumber(int n, int a, int b) {
