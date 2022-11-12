@@ -1,21 +1,22 @@
 class Solution {
 public:
+    long long mod = 1000000007;
     
-     long long mod = 1000000007;
-    
-    int solve(int n, int l, int h, int z, int o, vector<int>&dp){
-        if(n > h)return 0;
-        int ans=0;
-        if(n>=l)ans=1;
-        if(dp[n]!=-1)return dp[n];
+    int solve(int n, int low, int high, int zero, int one, vector<int>&dp){
+        if(n >= high) return 0;
+        if(dp[n]!= -1)return dp[n];
+        long long a = solve(n+zero, low, high, zero, one, dp);
+        if(low <=n+zero && n + zero <=high)a++;
         
-        ans += (solve(n+z, l, h, z, o, dp)%mod) + (solve(n+o, l, h, z, o, dp)%mod);
+        long long b = solve(n+one, low, high, zero, one, dp);
+        if(low  <= n + one && n +one <= high)b++;
         
-        return dp[n] = ans;
+        return dp[n] = (a+b)%mod;
+        
     }
     
-    int countGoodStrings(int low, int high, int z, int o) {
-        vector<int> dp(100005, -1);
-        return solve(0, low, high, z, o, dp)%mod;
+    int countGoodStrings(int low, int high, int zero, int one) {
+        vector<int> dp(100005, -1) ;
+        return solve(0, low, high, zero, one, dp);
     }
 };
