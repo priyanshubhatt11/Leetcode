@@ -18,6 +18,7 @@ public:
         
         long long over = abs((right - left) * (top - bottom));
         
+        // overlap occure
         if(right > left && top > bottom){
             return (l1*b1) + (l2*b2) - over;
         }
