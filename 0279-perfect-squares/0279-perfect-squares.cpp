@@ -1,7 +1,7 @@
 class Solution {
 public:
-    
-    int solve(vector<int>&vec, int idx , int tar, vector<vector<int>> &dp){
+    vector<vector<int>> dp;
+    int solve(vector<int>&vec, int idx , int tar){
         if(idx >= vec.size() || tar < 0)return 1000000;
         if(tar == 0)return 0;
         
@@ -10,9 +10,9 @@ public:
         
         int ans = INT_MAX;
         if(vec[idx] <= tar){
-            ans = min(ans, 1 + solve(vec, idx, tar - vec[idx] , dp));
+            ans = min(ans, 1 + solve(vec, idx, tar - vec[idx] ));
         }
-        ans = min(ans, solve(vec, idx+1 , tar, dp));
+        ans = min(ans, solve(vec, idx+1 , tar));
         return dp[idx][tar] = ans;
     }
     
@@ -21,7 +21,7 @@ public:
         for(int i=1;i*i<=n;i++){
             vec.push_back(i*i);
         }
-        vector<vector<int>> dp(101, vector<int>(10001, -1));
-        return solve(vec, 0, n, dp);
+        dp.resize(101, vector<int>(10001, -1));
+        return solve(vec, 0, n);
     }
 };
