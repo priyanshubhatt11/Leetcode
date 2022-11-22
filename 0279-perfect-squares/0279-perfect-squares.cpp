@@ -1,30 +1,21 @@
 class Solution {
 public:
-    vector<vector<int>> dp;
-    int nn;
-    int solve(vector<int>&vec, int idx , int tar){
-        if(tar == 0)return 0;
-        if(idx >= nn || tar < 0)return 1000000;
+    
+    int solve(int n, vector<int> &dp){
         
-        
-        if(dp[idx][tar] != -1)return dp[idx][tar];
-        
-        
+        if(n == 0)return 0;
+        if(dp[n] != -1)return dp[n];
         int ans = INT_MAX;
-        if(vec[idx] <= tar){
-            ans = min(ans, 1 + solve(vec, idx, tar - vec[idx] ));
+        for(int i=1;i*i<=n;i++){
+            int c = i*i;
+            ans = min(ans , 1 + solve(n - c, dp));
         }
-        ans = min(ans, solve(vec, idx+1 , tar));
-        return dp[idx][tar] = ans;
+        return dp[n] = ans;
+        
     }
     
     int numSquares(int n) {
-        vector<int> vec;
-        for(int i=1;i*i<=n;i++){
-            vec.push_back(i*i);
-        }
-        dp.resize(101, vector<int>(10001, -1));
-        nn = vec.size();
-        return solve(vec, 0, n);
+        vector<int> dp(n+1, -1);
+        return solve(n, dp);
     }
 };
