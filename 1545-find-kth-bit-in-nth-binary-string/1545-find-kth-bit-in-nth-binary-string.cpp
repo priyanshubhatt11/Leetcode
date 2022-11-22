@@ -15,7 +15,7 @@ public:
     
     char findKthBit(int n, int k) {
         string s = "0";
-        n--;
+        //n--;
         while(n--){
             s += "1" + solve(s.substr(0,s.size()));
         }
