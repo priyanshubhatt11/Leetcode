@@ -2,8 +2,9 @@ class Solution {
 public:
     vector<vector<int>> dp;
     int solve(vector<int>&vec, int idx , int tar){
-        if(idx >= vec.size() || tar < 0)return 1000000;
         if(tar == 0)return 0;
+        if(idx >= vec.size() || tar < 0)return 1000000;
+        
         
         if(dp[idx][tar] != -1)return dp[idx][tar];
         
