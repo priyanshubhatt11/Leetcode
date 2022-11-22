@@ -1,27 +1,66 @@
 class Solution {
 public:
-    
-    int solve(vector<int>&vec, int idx , int tar, vector<vector<int>> &dp){
-        if(idx >= vec.size() || tar < 0)return 1000000;
-        if(tar == 0)return 0;
-        
-        if(dp[idx][tar] != -1)return dp[idx][tar];
-        
-        
-        int ans = INT_MAX;
-        if(vec[idx] <= tar){
-            ans = min(ans, 1 + solve(vec, idx, tar - vec[idx] , dp));
+
+    // declare a dp
+
+    int dp[105][10005];
+
+    int helper(vector<int>& arr, int i, int n, int sum)
+    {
+        // base case
+
+        if(sum == 0)
+        {
+            return 0;
         }
-        ans = min(ans, solve(vec, idx+1 , tar, dp));
-        return dp[idx][tar] = ans;
+
+        if(i >= n || sum < 0)
+        {
+            return INT_MAX - 1000;
+        }
+
+        // if already calculated
+
+        if(dp[i][sum] != -1)
+        {
+            return dp[i][sum];
+        }
+
+        // at each ith element we have two options either include or exclude
+
+        int mini = INT_MAX;
+
+        // inclusion part
+
+        if(arr[i] <= sum)
+        {
+            mini = min(mini, 1 + helper(arr, i, n, sum - arr[i]));
+        }
+
+        // exclusion part
+
+        mini = min(mini, helper(arr, i + 1, n, sum));
+
+        // store the res in dp
+
+        return dp[i][sum] = mini;
     }
-    
+
     int numSquares(int n) {
-        vector<int> vec;
-        for(int i=1;i*i<=n;i++){
-            vec.push_back(i*i);
+
+        vector<int> arr;
+
+        // find all the squares between 1 to n
+
+        for(int i = 1; i * i <= n; i++)
+        {
+            arr.push_back(i * i);
         }
-        vector<vector<int>> dp(101, vector<int>(10001, -1));
-        return solve(vec, 0, n, dp);
+
+        // initialize dp with -1
+
+        memset(dp, -1, sizeof(dp));
+
+        return helper(arr, 0, arr.size(), n);
     }
 };
