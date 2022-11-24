@@ -13,10 +13,10 @@ public:
         vector<int> vec;
         inorder(root, vec);
         vector<vector<int>> ans;
-        
+         vector<int> vv;
         //1 2 4 6 9 13 14 15
         for(auto i:q){
-            vector<int> vv;
+           
             int idx1 = upper_bound(vec.begin(), vec.end(), i) - vec.begin();
             idx1--;
             if(idx1 < 0){
@@ -31,6 +31,7 @@ public:
             else vv.push_back(vec[idx2]);
             
             ans.push_back(vv);
+            vv.clear();
             
         }
         
