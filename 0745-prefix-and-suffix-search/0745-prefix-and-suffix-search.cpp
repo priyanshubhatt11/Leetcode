@@ -10,14 +10,16 @@ public:
                 for(int k=s.size()-1;k>=0;k--){
                     string s2 = s.substr(k);
                     //cout<<s1<<" | "<<s2<<endl;
-                    map[s1 + "|" + s2] = i+1;
+                    map[s1 + "|" + s2] = i;
                 }
-            }           
+            }   
+            cout<<endl;
         }
     }
     
     int f(string pref, string suff) {
-        return map[pref +"|" + suff] - 1; // -1 so that if string not found in map 
+        if(!map.count(pref +"|" + suff))return -1;
+        return map[pref +"|" + suff] ; // -1 so that if string not found in map 
     }
 };
 
