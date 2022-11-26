@@ -1,47 +1,56 @@
 class Solution {
 public:
-    int sumSubarrayMins(vector<int>& arr) {
-        int mod = 1e9 + 7;
+    
+    void leftfill(vector<int>&arr, vector<int>&left){
+        stack<int> st;
+        st.push(-1);
+        for(int i=0;i<arr.size();i++){
+            while(st.top() != -1 && arr[st.top()] > arr[i])   st.pop();
+            
+            left[i] = st.top();
+            st.push(i);
+        }
+    }
+    
+    void rightfill(vector<int>&arr, vector<int>&right){
         int n = arr.size();
-        long long int ans = 0;
-        //Left Smaller Element(at -1 if NOT exists) & Right Smaller Element(at n , if NOT exists)
-        vector<int> lSe(n,-1),rSe(n,n);
-        stack<int> s1,s2;
-
-        for(int i=0;i<n;i++){
-            //Put Equal either Here OR down
-            while(!s1.empty() && arr[s1.top()] >= arr[i]){
-                s1.pop();   
-            }
-            if(!s1.empty()){
-                lSe[i] = s1.top();
-            }
-            s1.push(i);
+        stack<int> st;
+        st.push(n);
+        for(int i=n-1;i>=0;i--){
+            while(st.top() != n && arr[st.top()] >= arr[i])  st.pop();
+            
+            right[i] = st.top();
+            st.push(i);
+        }
+    }
+    
+    int sumSubarrayMins(vector<int>& arr) {
+        int const mod = 1e9+7;
+        int n = arr.size();
+        vector<int> left(n), right(n);
         
-        }
-
-         for(int i=n-1;i>=0;i--){
-            while(!s2.empty() && arr[s2.top()] > arr[i]){
-                s2.pop();
-            }
-            if(!s2.empty()){
-                rSe[i] = s2.top();
-            }
-
-            s2.push(i);
-        }
-
+        leftfill(arr,left);
+        rightfill(arr, right);
+        
+        // for(int i:left)cout<<i<<" ";
+        // cout<<endl;
+        // for(int i:right)cout<<i<<" ";
+        
+        long long ans=0;
         for(int i=0;i<n;i++){
-            //Left Length arr[i] will be Max For
-            int leftL = i - lSe[i];
-
-            // Right Length arr[i] will be Max For
-            int rightL = rSe[i] - i;
-
-            ans = (ans + (((1LL*arr[i])*leftL)*(rightL))%mod)%mod;
+            long long x = (((long long)(i-left[i]) * (right[i] - i)%mod) * arr[i])%mod;
+            ans = (ans%mod + x%mod)%mod;
         }
-
         return ans;
-
+        
+        
     }
 };
+
+
+
+
+
+
+
+
