@@ -1,17 +1,20 @@
 class Solution {
 public:
-    bool canJump(vector<int> &v) {
-        int n = v.size();
-        if(n == 1) return true;
-        vector<bool> ans(n, false);
-        ans.back() = true;
-        int mn = n-1;
-        for(int i = n-2; i >= 0; i--){
-            if(i + v[i] >= mn){
-                ans[i] = true;
-                mn = i;
-            }
+    bool ans = false;
+    bool solve(vector<int>&nums, int idx, vector<int> &dp){
+        if(idx >= nums.size()-1)return true;
+        if(dp[idx] != -1)return dp[idx];
+        
+        for(int i=1;i<=nums[idx];i++){
+            ans = ans || solve(nums, idx+i, dp);
+            if(ans == true)return true;
         }
-        return ans.front();
+        return dp[idx] = ans;
+        
+    }
+    
+    bool canJump(vector<int>& nums){
+        vector<int> dp(nums.size(), -1);
+        return solve(nums, 0, dp);
     }
 };
