@@ -6,10 +6,10 @@ public:
         if(dp[idx] != -1)return dp[idx];
         
         for(int i=1;i<=nums[idx];i++){
-            ans = ans || solve(nums, idx+i, dp);
-            if(ans == true)return true;
+            dp[idx] = solve(nums, idx+i, dp);
+            if(dp[idx] == true)return dp[idx];
         }
-        return dp[idx] = ans;
+        return false;
         
     }
     
