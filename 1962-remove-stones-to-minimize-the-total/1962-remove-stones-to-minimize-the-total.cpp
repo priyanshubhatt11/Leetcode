@@ -1,20 +1,23 @@
 class Solution {
 public:
     int minStoneSum(vector<int>& piles, int k) {
-        multiset<int, greater<int>> s;
+        priority_queue<int> q;
         for(int i:piles){
-            s.insert(i);
+            q.push(i);
         }
         while(k--){
-            int x = *s.begin();
+            int x = q.top();
+            q.pop();
             x = ceil(x/2.0);
-            s.erase(s.lower_bound(*s.begin()));  // delete only one element
-            s.insert(x);
+            q.push(x);
         }
+       
         int ans=0;
         
-        for(auto i:s){
-            ans+=i;
+        while(!q.empty()){
+            int x = q.top();
+            q.pop();
+            ans+=x;
         }
         return ans;
     }
