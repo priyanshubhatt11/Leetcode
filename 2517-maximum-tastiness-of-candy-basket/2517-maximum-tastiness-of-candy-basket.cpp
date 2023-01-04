@@ -26,7 +26,7 @@ public:
             if(check(nums, mid, k)){
                 ans = max(ans, mid);
                 l = mid+1;
-                cout<<mid<<" ";
+                //cout<<mid<<" ";
             }
             else h = mid-1;
         }
