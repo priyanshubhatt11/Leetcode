@@ -10,7 +10,7 @@ public:
         int bal =0;
         for(int i=0;i<gas.size();i++){
             bal += gas[i] - cost[i];
-            cout<<bal<<" ";
+            //cout<<bal<<" ";
             if(bal <0){
                 idx = i+1;
                 bal =0;
