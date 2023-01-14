@@ -1,27 +1,26 @@
 class Solution {
 public:
-    vector<vector<int>> gg;
-    int solve(int u,string &s,int &ans){
-        vector<int> sub(2,0);
-        
-        for(int i:gg[u]){
-            int x = solve(i,s,ans);
-            if(s[u]==s[i])  continue;
-            sub.push_back(x);
-            sort(sub.rbegin(),sub.rend());
-            sub.pop_back();
+    vector<int> dist;
+    int ans=1;
+    
+    void dfs(vector<int>vec[], string &s, int src){
+        for(auto node: vec[src]){
+            dfs(vec, s, node);
+            if(s[node] == s[src])continue;
+            ans = max(ans, dist[src] + dist[node]);
+            dist[src] = max(dist[src] , dist[node]+1);
         }
-        ans=max(ans,sub[0]+sub[1]+1); 
-        return sub[0]+1;
     }
     
-    int longestPath(vector<int>& par, string s) {
-        gg.resize(par.size()+10);
+    int longestPath(vector<int>& p, string s) {
+        int n = p.size();
+        dist.resize(n,1);
+        vector<int> vec[n];
+        for(int i=1;i<n;i++){
+            vec[p[i]].push_back(i);
+        }
         
-        int ans=0;
-        for(int i=1;i<par.size();i++) gg[par[i]].push_back(i);
-        
-        solve(0,s,ans);
+        dfs(vec, s, 0);
         return ans;
     }
 };
