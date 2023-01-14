@@ -1,32 +1,29 @@
 class Solution {
 public:
-    vector<int>ans;
-    vector<int> solve(vector<vector<int>>&adj, int start, int parent, string &labels)
-    {
-        vector<int>cnt(26,0);
-        vector<int>temp;
-        for(auto x:adj[start])
-        {
-            if(x==parent)
-            continue;
-            temp.clear();
-            temp= solve(adj, x, start, labels);
-            for(int i=0;i<26;i++)
-            cnt[i]+=temp[i];
+    
+    vector<int> dfs(vector<vector<int>>&vec, string &str, int s, int p, vector<int>&ans){
+        vector<int> cnt(27,0);
+        for(auto i:vec[s]){
+            if(i == p)continue;
+            vector<int> temp = dfs(vec, str, i, s, ans);
+            for(int j=0;j<27;j++){
+                cnt[j] += temp[j]; 
+            }
         }
-        cnt[labels[start]-'a']++;
-        ans[start]=cnt[labels[start]-'a'];
+        cnt[str[s]-'a']++;
+        ans[s] = cnt[str[s] - 'a'];
         return cnt;
     }
+    
     vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
-        vector<vector<int>>adj(n);
-        for(auto x:edges)
-        {
-            adj[x[0]].push_back(x[1]);
-            adj[x[1]].push_back(x[0]);
+        vector<vector<int>> vec(n);
+        for(auto i:edges){
+            vec[i[0]].push_back(i[1]);
+            vec[i[1]].push_back(i[0]);
         }
-        ans.resize(n,0);
-        solve(adj, 0, -1, labels);
-        return ans;   
+        vector<int> ans(n);
+        
+        dfs(vec, labels, 0 ,-1, ans);
+        return ans;
     }
 };
