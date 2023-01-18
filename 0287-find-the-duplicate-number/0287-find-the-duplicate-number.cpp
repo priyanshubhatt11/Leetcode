@@ -1,3 +1,6 @@
+// Floyd cycle detection
+// similar to cycle detection in linked list
+
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
