@@ -10,12 +10,32 @@ public:
         }
         return false;
     }
-    bool searchMatrix(vector<vector<int>>& mat, int target) {
+    bool searchMatrix(vector<vector<int>>& mat, int tar) {
         int n = mat.size();
         int m = mat[0].size();
         for(int i=0;i<n;i++){
-            if(binaryS(mat[i], target))return true;
+            if(binaryS(mat[i], tar))return true;
         }
         return false;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
