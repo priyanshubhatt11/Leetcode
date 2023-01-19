@@ -11,7 +11,9 @@ public:
             if(x<0){
                 x+=k;  // NOTE :- we add the number k to make it positive   
             }
-            ans+=mp[x];
+            if(mp.count(x)){
+                ans += mp[x];
+            }
             mp[x]++;
         }
         return ans;
