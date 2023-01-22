@@ -11,7 +11,7 @@ public:
     
     void solve(string s, vector<string>&vec, int idx){
         if(idx >= s.size()){
-            ans.push_back(vec);
+            ans.emplace_back(vec);
             return;
         }
         for(int i=idx;i<s.size();i++){
