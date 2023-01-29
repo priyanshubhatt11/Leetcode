@@ -2,8 +2,8 @@ class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         int gsum=0, sum=0;
-        for(auto i:gas)gsum += i;
-        for(auto i:cost)sum+=i;
+        for(auto &i:gas)gsum += i;
+        for(auto &i:cost)sum+=i;
         if(sum > gsum)return -1;
         int bal =0;
         int idx=0;
