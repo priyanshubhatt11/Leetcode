@@ -6,34 +6,30 @@ using namespace std;
 class Solution
 {
 	public:
-	
-	void solve(vector<int> adj[], vector<bool>&vis, stack<int> &st, int idx){
-	    vis[idx] = true;
-	    for(auto i:adj[idx]){
-	        if(!vis[i]){
-	            solve(adj, vis, st, i);
-	        }
-	    }
-	    st.push(idx);
-	    
-	}
-	
+	// toposort or kahn's algorithm
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    stack<int> st;
-	    vector<bool> vis(V,false);
+	    vector<int> ino(V, 0);
+	    queue<int> q;
 	    for(int i=0;i<V;i++){
-	        if(!vis[i]){
-	            solve(adj, vis, st, i);
+	        for(auto j:adj[i]){
+	            ino[j]++;
 	        }
 	    }
+	    for(int i=0;i<V;i++){
+	        if(ino[i] == 0)q.push(i);
+	    }
 	    vector<int> ans;
-	    while(!st.empty()){
-	        ans.push_back(st.top());
-	        st.pop();
+	    while(!q.empty()){
+	        int x = q.front();
+	        q.pop();
+	        for(auto i:adj[x]){
+	            ino[i]--;
+	            if(ino[i] == 0)q.push(i);
+	        }
+	        ans.push_back(x);
 	    }
 	    return ans;
-	    
 	}
 };
 
