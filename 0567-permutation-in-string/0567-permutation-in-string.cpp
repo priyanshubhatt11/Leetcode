@@ -1,26 +1,22 @@
 class Solution {
 public:
-    
-    bool check(vector<int> &vec){
-        for(auto i:vec){
-            if(i != 0)return false;
-        }
-        return true;
-    }
-    
     bool checkInclusion(string s1, string s2) {
-        vector<int> freq(26,0);
-        for(auto i:s1)freq[i-'a']++;
-        for(int i=0;i<s2.size();i++){
-            vector<int> temp = freq;
-            for(int j=i;j<i+s1.size() && j<s2.size();j++){
-                int x = s2[j]-'a';
-                if(temp[x] > 0){
-                    temp[x]--;
-                }
-                else break;
-                if(check(temp))return true;
-            }
+        int n = s1.size(), m= s2.size();
+        vector<int> freq1(26,0), freq2(26,0);
+        
+        if(n>m)return false;
+        
+        for(int i=0;i<n;i++){
+            freq1[s1[i] -'a']++;
+            freq2[s2[i] -'a']++;
+        }
+        if(freq1 == freq2)return true;
+        
+        for(int i=n;i<m;i++){   // sliding window
+            freq2[s2[i] -'a']++;
+            freq2[s2[i -n] -'a']--;
+            
+            if(freq1 == freq2)return true;
         }
         return false;
     }
