@@ -10,11 +10,9 @@ class Solution {
         vis[ch] = true;
         for(auto i:adj[ch]){
             if(!vis[i]){
-                if(dfs(adj, vis, i, ch))return true;
+                if(dfs(adj, vis, i, ch)) return true;
             }
-            else if(i != par){
-                return true;
-            }
+            else if(i!= par)return true;
         }
         return false;
     }
