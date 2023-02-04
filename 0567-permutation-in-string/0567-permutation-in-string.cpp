@@ -13,7 +13,7 @@ public:
         for(auto i:s1)freq[i-'a']++;
         for(int i=0;i<s2.size();i++){
             vector<int> temp = freq;
-            for(int j=i;j<s2.size();j++){
+            for(int j=i;j<i+s1.size() && j<s2.size();j++){
                 int x = s2[j]-'a';
                 if(temp[x] > 0){
                     temp[x]--;
