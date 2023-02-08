@@ -1,10 +1,10 @@
 class Solution {
 public:
     
-    long long solve(vector<int>&nums, int idx, vector<long long> &dp){
+    int solve(vector<int>&nums, int idx, vector<long long> &dp){
         if(idx >= nums.size()-1)return 0;
         if(dp[idx] != -1)return dp[idx];
-        long long ans = INT_MAX;
+        int ans = 1e5;
         for(int i=1;i<=nums[idx];i++){
             ans = min(ans, 1+ solve(nums,idx+i, dp));
         }
