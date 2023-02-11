@@ -8,46 +8,40 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    
-    void topoSort(vector<pair<int,int>> adj[], vector<bool> &vis, stack<int> &st, int idx){
+  
+    void topoSort(vector<pair<int,int>> vec[], int idx, stack<int> &st, vector<bool>&vis){
         vis[idx] = true;
-        for(auto i:adj[idx]){
+        for(auto i:vec[idx]){
             if(!vis[i.first]){
-                topoSort(adj, vis, st, i.first);
+                topoSort(vec, i.first, st, vis);
             }
         }
         st.push(idx);
     }
-    
-    
+  
      vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
-        vector<pair<int,int>> adj[N];
+        vector<pair<int, int>> vec[N];
         for(auto i:edges){
-            int u = i[0];
-            int v = i[1];
-            int d = i[2];
-            adj[u].push_back({v,d});
+            vec[i[0]].push_back({i[1], i[2]});
         }
-        vector<bool> vis(N,false);
+        vector<bool> vis(N, false);
         stack<int> st;
         for(int i=0;i<N;i++){
             if(!vis[i]){
-                topoSort(adj, vis, st, i);
+                topoSort(vec, i, st, vis);
             }
         }
         vector<int> dist(N, 10001);
         dist[0] = 0;
         while(!st.empty()){
-            int u = st.top();
+            int idx = st.top();
             st.pop();
-            for(auto it:adj[u]){
-                int v = it.first;
-                int d = it.second;
-                dist[v] = min(dist[v], dist[u] + d);
-            } 
+            for(auto i:vec[idx]){
+                dist[i.first] = min(dist[i.first], dist[idx] + i.second);
+            }
         }
         for(int i=0;i<N;i++){
-            if(dist[i] == 10001)dist[i] = -1;
+             if(dist[i] == 10001)dist[i] = -1;
         }
         return dist;
         
