@@ -14,15 +14,17 @@ public:
             q.pop();
             if(s == end)return c+1;
             for(int i=0;i<s.size();i++){
+                char original = s[i];
                 for(char j='a';j<='z';j++){
-                    string temp = s.substr(0,i) + j + s.substr(i+1);
-                    if(st.find(temp) != st.end()){
+                    //string temp = s.substr(0,i) + j + s.substr(i+1);  // or
+                    s[i] = j;
+                    if(st.find(s) != st.end()){
                         //cout<<temp<<" ";
-                        st.erase(temp);
-                        q.push({temp, c+1});
-                        
+                        st.erase(s);
+                        q.push({s, c+1});     
                     }
                 }
+                s[i] = original;
             }
         }
         return 0;
