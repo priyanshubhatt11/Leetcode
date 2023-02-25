@@ -67,8 +67,8 @@ void dfs(vector<vector<int>>& grid,int i,int j)
                     {
                         if(grid[r][c]==2)
                           return ans-1;
-                        qp.push({row+a[i],col+b[i]});
-                        grid[row+a[i]][col+b[i]]=1;
+                        qp.push({r,c});
+                        grid[r][c]=1;
                     }   
                 }
             }
