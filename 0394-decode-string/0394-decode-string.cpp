@@ -2,28 +2,20 @@ class Solution {
 public:
     
     string solve(string s, int &i){
-        string ans = "";
-        while(i<s.size()){
-            if(isalpha(s[i])){
-                ans += s[i++];
+        int num =0;
+        string str = "";
+        for(;i<s.size();i++){
+            if(s[i] >='0' && s[i] <='9') num = num*10 + (s[i]-'0');
+            else if(s[i] == '['){
+                string ans = solve(s, ++i);
+                while(num--) str+=ans;
+                num =0;
             }
-            else if(s[i] == ']'){
-                i++;
-                return ans;
-            }
-            else{
-                int num =0;
-                while(isdigit(s[i])){
-                    num = num*10 + s[i]-'0';
-                    i++;
-                }
-                string str = solve(s, ++i); 
-                while(num--){
-                    ans += str;
-                }
-            }
+            else if(s[i] == ']')return str;
+            else str += s[i];
+            
         }
-        return ans;
+        return str;
     }
     
     string decodeString(string s) {
