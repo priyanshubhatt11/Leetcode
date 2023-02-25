@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    int dp[71][5000];
+    int dp[71][9000];
     
     int solve(vector<vector<int>>&mat, int tar, int idx, int num){
         
