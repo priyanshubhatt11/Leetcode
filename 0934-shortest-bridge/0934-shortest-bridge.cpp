@@ -1,75 +1,79 @@
 class Solution {
 public:
-    vector<vector<bool>> vis;
-    int n,m;
-    queue<vector<int>> q;
-    void dfs(vector<vector<int>>&grid, int i, int j){
-        if(i<0 || i>=n || j<0 || j>=m || vis[i][j] || grid[i][j] == 0)return;
-        vis[i][j] = true;
-        grid[i][j] = 0;
-        q.push({i, j});
-        dfs(grid, i+1, j);
-        dfs(grid, i, j+1);
-        dfs(grid, i-1, j);
-        dfs(grid, i, j-1);
-    }
+int vis[101][101];
+bool main_flag;
+bool is_valid(vector<vector<int>>& grid,int row,int col)
+{
     
-    int bfs(vector<vector<int>>&grid){
-        
-        int dx[4] = {1, -1, 0, 0};
-        int dy[4] = {0, 0, 1, -1};
-        int count =0;
-        while(!q.empty()){
-            int k = q.size();
-            while(k--){
-                vector<int> vec = q.front();
-                int i = vec[0];
-                int j = vec[1];
-                
-                q.pop();
-                for(int k=0;k<4;k++){
-                    int r = i+dx[k];
-                    int c = j+dy[k];
-                    if(r <0 || r>=n || c<0 || c>=m || vis[r][c])continue;
-                    vis[r][c] = true;
-                    if(grid[r][c] == 1)return count;
-                    q.push({r, c});
-                }
-            }
-            count++;
-        }
-        return -1;
-    }
+    if(row<0||col<0||row>=grid.size()||col>=grid.size()||grid[row][col]==1)
+    return false;
     
+    return true;
+}
+void dfs(vector<vector<int>>& grid,int i,int j)
+{
+    if(i<0||j<0||i>=grid.size()||j>=grid.size()||vis[i][j]==1||grid[i][j]==0)
+    return;
+    vis[i][j]=1;
+    grid[i][j]=2;
+      dfs(grid,i+1,j);
+      dfs(grid,i,j+1);
+      dfs(grid,i,j-1);
+      dfs(grid,i-1,j);
+}
     int shortestBridge(vector<vector<int>>& grid) {
-        n = grid.size();
-        m = grid[0].size();
-        vis.resize(n, vector<bool>(m, false));
-        
-        for(int i=0;i<n;i++){
-            bool flag = false;
-            for(int j=0;j<m;j++){
-                if(grid[i][j] == 1){
-                    dfs(grid, i, j);
-                    flag = true;
-                    break;
+        bool flag1=false;
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid.size();j++)
+            {
+                if(grid[i][j]==1)
+                {
+                 dfs(grid,i,j);
+                 flag1=true;
+                 break;
                 }
             }
-            if(flag)break;
+            if(flag1)
+            break;
         }
         
-        
-        return bfs(grid);
+        queue<pair<int,int>>qp;
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid.size();j++)
+            {
+                if(grid[i][j]==1)
+                qp.push({i,j});
+            }
+        }
+        int ans=0;
+        int a[4]={1,0,0,-1};
+        int b[4]={0,1,-1,0};
+        while(qp.size()>0)
+        {
+            ans++;
+            int len=qp.size();
+            for(int i=0;i<len;i++)
+            {
+                int row=qp.front().first;
+                int col=qp.front().second;
+                qp.pop();
+                for(int i=0;i<4;i++)
+                {
+                    int r = row + a[i];
+                    int c = col + b[i];
+                    if(is_valid(grid,r,c))
+                    {
+                        if(grid[r][c]==2)
+                          return ans-1;
+                        qp.push({row+a[i],col+b[i]});
+                        grid[row+a[i]][col+b[i]]=1;
+                    }   
+                }
+            }
+            
+        }
+        return ans;
     }
 };
-
-
-
-
-
-
-
-
-
-
-
