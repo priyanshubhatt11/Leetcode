@@ -8,7 +8,9 @@ public:
         for(auto i:nums){
             x += i;
             int tar = x - k;
-            ans += mp[tar];
+            if(mp.count(tar)){
+                ans += mp[tar];
+            }
             mp[x]++;
         }
         return ans;
