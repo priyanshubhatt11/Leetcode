@@ -14,7 +14,7 @@ public:
                     while(l<h && nums[l] == nums[l+1])l++;
                     while(l<h && nums[h] == nums[h-1])h--;
                     l++;
-                    h--;
+                    
                 }
                 else if(sum > 0)h--;
                 else l++;  
