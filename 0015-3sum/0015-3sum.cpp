@@ -1,38 +1,26 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
+        vector<vector<int>> vec;
+        int n = nums.size();
         sort(nums.begin(), nums.end());
-        set<vector<int>> st;
-        //-4 -1 -1 0 1 2
-        for(int i=0;i<nums.size();i++){
-             if( i> 0 && nums[i] == nums[i-1]){
-                continue;
-             } 
-            int x = nums[i];
-            int j = i+1;
-            int k = nums.size()-1;
-            while(j<k){
-                int sum = x + nums[j] + nums[k];
+        for(int i=0;i<n;i++){
+            if(i>0 && nums[i] == nums[i-1])continue;
+            int l = i+1, h = n-1;
+            while(l<h){
+                int sum = nums[i] + nums[l] +nums[h];
                 if(sum == 0){
-                    ans.push_back({x, nums[j], nums[k]});
-                    
+                    vec.push_back({nums[i], nums[l], nums[h]});
+                    while(l<h && nums[l] == nums[l+1])l++;
+                    while(l<h && nums[h] == nums[h-1])h--;
+                    l++;
+                    h--;
                 }
-//                 while(j<k && nums[j] == nums[j+1]){
-//                         j++;
-//                     }
-//                 while(k >j && nums[k] == nums[k-1]){
-//                     k--;
-//                 }
+                else if(sum > 0)h--;
+                else l++;  
                 
-                if(sum < 0)j++;
-                else k--;
             }
         }
-        
-        ans.erase(unique(ans.begin(), ans.end()), ans.end());
-        
-     
-        return ans;
+        return vec;
     }
 };
