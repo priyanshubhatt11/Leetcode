@@ -1,20 +1,22 @@
 class Solution {
 public:
-    bool ans = false;
-    bool solve(vector<int>&nums, int idx, vector<int> &dp){
+    
+    int dp[10001];
+    bool solve(vector<int>&nums, int idx){
         if(idx >= nums.size()-1)return true;
         if(dp[idx] != -1)return dp[idx];
-        
+        //cout<<idx<<" ";
+        bool ans = false;
         for(int i=1;i<=nums[idx];i++){
-            dp[idx] = solve(nums, idx+i, dp);
-            if(dp[idx] == true)return dp[idx];
+            ans = ans |  solve(nums, idx+i);
+            if(ans == true)return ans;
         }
-        return false;
+        return dp[idx] = ans;
         
     }
     
-    bool canJump(vector<int>& nums){
-        vector<int> dp(nums.size(), -1);
-        return solve(nums, 0, dp);
+    bool canJump(vector<int>& nums) {
+        memset(dp, -1, sizeof(dp));
+        return solve(nums, 0);
     }
 };
