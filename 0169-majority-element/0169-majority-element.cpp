@@ -1,17 +1,8 @@
 class Solution {
 public:
-    //Moore Voting Algorithm
     int majorityElement(vector<int>& nums) {
-        int x;
-        int c=0;
-        for(int i=0;i<nums.size();i++){
-            if(c == 0){
-                x = nums[i];
-            }
-            
-            if(x == nums[i]) c++;
-            else c--;
-        }
-        return x;
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        return nums[n/2];
     }
 };
