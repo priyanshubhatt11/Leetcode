@@ -9,24 +9,21 @@ public:
         bool flag = false;
         while(!q.empty()){
             int k = q.size();
-            
             while(k--){
                 TreeNode* temp = q.front();
                 q.pop();
+                if(temp == NULL){
+                    flag = true;
+                }
+                else{
+                    if(flag) return false;
+                    q.push(temp->left);
+                    q.push(temp->right);
+                }
                 
-               
-                
-                if(!flag && (temp->left == NULL || temp->right == NULL))flag = true;
-                else if(flag && (temp->left != NULL || temp->right != NULL))return false;
-                if(temp->left == NULL && temp->right != NULL)return false;
-                    
-                if(temp->left)q.push(temp->left);
-                if(temp->right)q.push(temp->right);
             }
             
-        }
-   
-        
+        }        
         return true;
     }
 };
