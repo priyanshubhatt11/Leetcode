@@ -32,17 +32,10 @@ public:
         while(!q.empty()){
             TreeNode* temp = q.front();
             q.pop();
-            if(!fd && temp->right == NULL)fd = true;
-            else if(fd && (temp->left != NULL || temp->right !=NULL))return false;
             
-            if(!ff && (temp->left == NULL && temp->right == NULL)){
-                ff = true;
-            }
-            else if(ff && (temp->left != NULL || temp->right != NULL))return false;
-            else if(temp->left == NULL && temp->right != NULL){
-                return false;
-            }
-            else if(flag && (temp->left == NULL || temp->right == NULL))return false;
+            if(!flag && temp->right == NULL)flag = true;
+            else if(temp->right != NULL && temp->left == NULL)return false;
+            else if(flag && (temp->left != NULL || temp->right != NULL))return false;
             
         }
         
