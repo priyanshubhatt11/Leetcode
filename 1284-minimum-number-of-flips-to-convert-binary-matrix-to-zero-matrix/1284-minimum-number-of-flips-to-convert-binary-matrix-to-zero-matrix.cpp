@@ -1,6 +1,7 @@
 class Solution {
 public:
     set<vector<vector<int>>> vis;
+    
     int dx[5] = {1,0,-1,0, 0};
     int dy[5] = {0,1,0,-1, 0};
     vector<vector<int>> changeMat(vector<vector<int>> &vec, int i ,int j){
