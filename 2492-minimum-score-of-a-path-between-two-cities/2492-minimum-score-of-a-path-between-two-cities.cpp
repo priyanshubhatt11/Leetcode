@@ -5,8 +5,8 @@ public:
     
     void solve(vector<pair<int,int>> vec[], vector<bool>&vis, int idx){
         
-        // ans = min(ans, vec[idx].second);
         vis[idx] = true;
+        
         for(auto i:vec[idx]){
             ans = min(ans, i.second);
             if(!vis[i.first]){
