@@ -1,30 +1,33 @@
 class Solution {
 public:
     
-    void dfs(vector<int> vec[], vector<bool>&vis, int idx){
+    void solve(vector<int> vec[], int idx, vector<bool>&vis){
         vis[idx] = true;
         for(auto i:vec[idx]){
             if(!vis[i]){
-                dfs(vec, vis, i);
+                solve(vec, i, vis);
             }
         }
     }
     
-    int makeConnected(int n, vector<vector<int>>& nums) {
-        if(nums.size() < n-1)return -1;
-        vector<int> vec[n];
-        for(auto i:nums){
+    int makeConnected(int n, vector<vector<int>>& conn) {
+        if(n-1 > conn.size())return -1;
+        vector<int> vec[n+1];
+        for(auto i:conn){
             vec[i[0]].push_back(i[1]);
             vec[i[1]].push_back(i[0]);
         }
-        vector<bool> vis(n, false);
-        int c =0;
+        
+        int ans =0;
+        vector<bool> vis(n+1, false);
         for(int i=0;i<n;i++){
             if(!vis[i]){
-                dfs(vec, vis, i);
-                c++;
+                solve(vec, i, vis);
+                ans++;
             }
         }
-        return c-1;
+        
+        return ans-1;
+        
     }
 };
