@@ -6,28 +6,15 @@ public:
             if(i>=0 || i%value == 0){
                 mp[i%value]++;
             }
-            else{
-                int temp = abs(i);
-                if(temp == value){
-                    mp[0]++;
-                }
-                else{
-                    temp = i + (temp/value)*value + value;
-                    //cout<<temp<<" ";
-                    mp[temp]++;
-                }
+            else{ // negative
+                mp[i%value + value]++;
             }
-            
-            //cout<<abs(i)%value<<" ";
-            
         }
-        //for(auto i:mp)cout<<i.first<<" ";
         
-        int c=0;
+        int c =0;
         while(true){
-            if(mp.count(c) == false){
-                return c;
-            }
+            if(mp.count(c) == false)return c;
+            
             if(mp[c]>1){
                 mp[c+value] = mp[c]-1;
             }
