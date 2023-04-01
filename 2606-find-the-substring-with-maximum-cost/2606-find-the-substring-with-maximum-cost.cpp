@@ -1,24 +1,24 @@
 class Solution {
 public:
     int maximumCostSubstring(string s, string chars, vector<int>& vals) {
-        int sum = 0, maxi = INT_MIN;
-        
-        unordered_map<char,int> m;
-        for(int i=0;i<chars.size();i++) m[chars[i]]=i;
-        
-        for(int i=0;i<s.size();i++)
-        {
-            if(m.find(s[i])==m.end()) sum += (s[i]-'a'+1);
-            else
-            {
-                int index = m[s[i]];
-                sum += vals[index];
-            }
-            
-            maxi = max(maxi,sum);
-            if(sum<0) sum=0;
+        unordered_map<char, int> mp;
+        int n = chars.size();
+        for(int i=0;i<n;i++){
+            mp[chars[i]] = vals[i];
         }
-        if(maxi<0) return 0;
-        return maxi;
+        
+        int ans =0, c =0;
+        for(int i=0;i<s.size();i++){
+            if(mp.count(s[i])){
+                c += mp[s[i]];
+            }
+            else{
+                c += (s[i] -'a')+1;
+            }
+            ans = max(ans, c);
+            if(c <0)c=0;
+        }
+        return ans;
+        
     }
 };
