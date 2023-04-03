@@ -1,70 +1,50 @@
 class Solution {
 public:
-    set<vector<vector<int>>> vis;
-    
-    int dx[5] = {1,0,-1,0, 0};
-    int dy[5] = {0,1,0,-1, 0};
-    vector<vector<int>> changeMat(vector<vector<int>> &vec, int i ,int j){
-        vector<vector<int>> mat = vec;
-        
-        for(int k=0;k<5;k++){
-            int r = i+dx[k];
-            int c = j+dy[k];
-            if(r<0 || r >=mat.size() || c<0 || c>=mat[0].size())continue;
-            mat[r][c] = !mat[r][c];
-        }
-        return mat;
-    }
-    
-    bool checkone(vector<vector<int>>&vec){
-        for(int i=0;i<vec.size();i++){
-            for(int j=0;j<vec[0].size();j++){
-                if(vec[i][j] == 1)return false;
-            }
-        }
-        return true;
-    }
-    
     int minFlips(vector<vector<int>>& mat) {
-        queue<vector<vector<int>>> q; // matrix, count of one
-        
-        int n = mat.size(), m = mat[0].size();
-        
-        int c =0;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(mat[i][j] == 1)c++;
-            }
-        }
-        
-        
+        int n = mat.size(), m= mat[0].size();
+        int dx[5] = {1,0,0,-1,0};
+        int dy[5] = {0,1,-1,0, 0};
+        queue<vector<vector<int>>> q;
+        set<vector<vector<int>>> vis;
         vis.insert(mat);
         q.push(mat);
-        
-        int count =0;
+        int c =0;
         while(!q.empty()){
-            int k = q.size();
-      
-            while(k--){
-                vector<vector<int>> vec = q.front();
+            int t = q.size();
+            c++;
+            while(t--){
+                vector<vector<int>> vv = q.front();
                 q.pop();
-                if(checkone(vec))return count;
-                
+                int x =0;
                 for(int i=0;i<n;i++){
                     for(int j=0;j<m;j++){
-                        
-                       vector<vector<int>> vv = changeMat(vec, i, j);  
-                        if(vis.count(vv) == false){
-                            q.push(vv);
-                            vis.insert(vv);
+                        if(vv[i][j] == 1){
+                            x++;
                         }
                     }
                 }
+                
+                if(x == 0)return c-1;
+                
+                for(int i=0;i<n;i++){
+                    for(int j=0;j<m;j++){
+                        vector<vector<int>> vec = vv;
+                        for(int k=0;k<5;k++){
+                            int rr = i+dx[k];
+                            int cc = j+dy[k];
+                            if(rr<0 || rr >= n || cc<0 || cc >= m )continue;
+                            vec[rr][cc] = !vec[rr][cc];
+                        }
+                        if(vis.count(vec) == false){
+                        vis.insert(vec);
+                            q.push(vec);
+                        }
+
+                    }
+                }
             }
-            count++;
         }
         return -1;
-        
         
     }
 };
