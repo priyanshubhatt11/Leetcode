@@ -11,7 +11,7 @@ public:
                 sum -= min(sum, (long long)x-nums[i]);
             }
         }
-        if(sum == 0)return true;
+        if(sum <= 0)return true;
         return false;
     }
     
@@ -23,6 +23,7 @@ public:
             
             if(ok(nums, mid)){
                 ans = mid;
+                cout<<mid<<" ";
                 h = mid-1;
             }
             else l = mid+1;
