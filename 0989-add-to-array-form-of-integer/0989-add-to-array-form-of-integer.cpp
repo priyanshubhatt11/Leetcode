@@ -1,42 +1,27 @@
 class Solution {
 public:
     vector<int> addToArrayForm(vector<int>& num, int k) {
-        int carry = 0;
-        bool flag = false;
         reverse(num.begin(), num.end());
-        for(int i=0;i<num.size();i++){
-            int x = k%10;
+        vector<int> ans;
+        int idx = 0;
+        int c =0;
+        while(idx < num.size() || c>0 || k!=0){
+            int temp = k%10;
             k = k/10;
-            int sum = num[i] + x; 
-            //cout<<num[i]<<" "<<x<<" ";
-            if(flag == true){
-                sum++;
-                flag =false;
+            int x;
+            if(idx < num.size()){
+                x = (num[idx] + c + temp);
+                idx++;
             }
-            if(sum > 9){
-                sum = sum%10;
-                flag = true;
+            else{
+                x = temp +c;
             }
             
-            num[i] = sum;
+            c = x/10;
+            x = x%10;
+            ans.push_back(x);
         }
-        
-        //for(auto i:num)cout<<i<<" ";
-        while(k!=0){
-            int x = k%10;
-            if(flag){
-                x++;
-                flag = false;
-            }
-            if(x>9){
-                flag= true;
-                x = x%10;
-            }
-            num.push_back(x);
-            k = k/10;
-        }
-        if(flag)num.push_back(1);
-        reverse(num.begin(), num.end());
-        return num;
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
 };
