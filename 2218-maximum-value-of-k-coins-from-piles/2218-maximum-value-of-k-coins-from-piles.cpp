@@ -1,26 +1,18 @@
 class Solution {
 public:
+    vector<vector<vector<int>>> dp;
     
-    int Recursion(vector<vector<int>>& piles , int k , int i ,int j ,vector<vector<vector<int>>>& dp)
-    {
-        if(i>=piles.size() || k<=0 )
-        {
-            return 0;
+    int solve(vector<vector<int>>&vec, int k, int i, int j){
+        if(k<=0 || i>=vec.size())return 0;
+        if(dp[k][i][j] != -1)return dp[k][i][j];
+        int a=0,b=0;
+        a += solve(vec, k, i+1, 0);
+        if(j<vec[i].size()){
+            b += vec[i][j] + solve(vec, k-1, i, j+1);
         }
-        if(dp[i][k][j]!=-1)
-        {
-            return dp[i][k][j];
-        }
-        int a = 0+ Recursion(piles,k , i+1 , 0,dp) ;
-        int b=0;
-        if(j<piles[i].size())
-        {
-            b = piles[i][j]+ Recursion(piles, k-1 ,i ,j+1,dp) ;
-        }
-       // cout<<a<< " "<<b<<endl;
-        dp[i][k][j] = max(a,b) ;
-        return dp[i][k][j] ;
+        return dp[k][i][j] = max(a,b);
     }
+    
     int maxValueOfCoins(vector<vector<int>>& piles, int k) {
         int max_length =0;
         for(auto num:piles)
@@ -28,8 +20,8 @@ public:
             int p = num.size() ;
             max_length = max(max_length ,p);
         }
-        vector<vector<vector<int>>> dp(piles.size() ,vector<vector<int>>(k+1,vector<int>(max_length +1,-1)));
-       
-        return Recursion(piles, k , 0 , 0 , dp);
+        
+        dp.resize(k+1 ,vector<vector<int>>(piles.size(),vector<int>(max_length +1,-1)));
+        return solve(piles, k, 0, 0);
     }
 };
