@@ -1,17 +1,25 @@
 class Solution {
 public:
     int maxVowels(string s, int k) {
-        unordered_set<char> st;
-        st.insert('a');st.insert('e');st.insert('i');st.insert('o');st.insert('u');
-        int ans =0;
-        int c =0;
         for(int i=0;i<s.size();i++){
-            if(i>=k){
-                if(st.count(s[i-k]))c--;
+            if(s[i] == 'a'||s[i] =='e' || s[i] =='i' || s[i] == 'o' || s[i] == 'u'){
+                s[i] = '1';
             }
-            if(st.count(s[i]))c++;
-            ans = max(ans, c);
-            
+            else{
+                s[i] = '0';
+            }
+        }
+        // for(auto i:s){
+        //     cout<<i<<" ";
+        // }
+        int ans=0, c=0;
+        for(int i=0;i<s.size();i++){
+            int j = i-k;
+            if(s[i] == '1')c++;
+            if(j>=0){
+                if(s[j] == '1')c--;
+            }
+            ans = max(ans, c );
         }
         return ans;
     }
