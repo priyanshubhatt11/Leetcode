@@ -4,7 +4,7 @@ public:
         int n = nums.size();
         vector<int> ans, vec(nn,0);
         int c=0;
-        for(auto it:nums){
+        for(auto &it:nums){
             int idx = it[0], val = it[1];
             if(vec[idx] != 0){
                 if(idx > 0 && vec[idx] == vec[idx-1])c--;
