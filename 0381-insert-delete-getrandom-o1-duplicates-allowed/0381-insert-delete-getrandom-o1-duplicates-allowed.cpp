@@ -25,17 +25,16 @@ public:
         int temp = vec.back();
         auto st2 = mp[temp];
         int idx2 = *st2.rbegin();
-        if(val == temp){
             mp[val].erase(*st.rbegin());
             
-        }
-        else{
+
             vec[idx] = temp;
             
             mp[val].erase(idx);
-            mp[temp].erase(idx2);
             mp[temp].insert(idx);
-        }
+            mp[temp].erase(idx2);
+            
+        
         
 
         vec.pop_back();
